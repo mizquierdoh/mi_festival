@@ -1,0 +1,111 @@
+table {
+    //border-collapse: separate;
+    border-spacing: 0;
+
+}
+
+td {
+    margin: 0;
+    border: 1px solid #000;
+    white-space: nowrap;
+    border-top-width: 0px;
+
+}
+
+div {
+    overflow-x: scroll;
+    overflow-y: visible;
+    padding: 0;
+    height: 100%;
+}
+
+.horas {
+    position: sticky;
+    width: 2em;
+    left: 0;
+    top: auto;
+    border-top-width: 5px;
+    z-index: 9999;
+    background: var(--background)
+}
+
+.main {
+    --background: #9f0202;
+    color: white;
+}
+
+.desert {
+    --background: #b06700;
+    color: black;
+}
+
+.ritual {
+    --background: grey;
+    color: white;
+}
+
+.chaos {
+    --background: black;
+    color: white;
+}
+
+.ahora {
+    --background: blue;
+    color: white;
+}
+
+
+
+.icono {
+    width: 1.5em;
+    height: 1.5em;
+}
+
+
+
+
+ion-badge.class1 {
+    --background: red;
+}
+
+ion-badge.class2 {
+    --background: orange;
+}
+
+ion-badge.class3 {
+    --background: yellow;
+    --color: black;
+}
+
+ion-badge.class4 {
+    --background: yellowgreen;
+    --color: black;
+}
+
+ion-badge.class5 {
+    --background: green;
+}
+
+ion-item {
+    --background: inherit;
+    --inner-padding-end: 0px;
+    --border-style: none;
+}
+
+ion-badge {
+    margin-top: 0px;
+    margin-right: 1em;
+    margin-inline-start: 1em;
+    padding: 0.5em
+}
+
+ion-label {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+table {
+    border-collapse: separate;
+    border-spacing: 0;
+    border-top: 1px solid #000;
+}

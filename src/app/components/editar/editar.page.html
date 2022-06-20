@@ -1,0 +1,94 @@
+<ion-header>
+
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label>Nombre:</ion-label>
+    <ion-input class="ion-text-end" [(ngModel)]="grupo.nombre"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Procedencia:</ion-label>
+    <ion-input class="ion-text-end" [(ngModel)]="grupo.procedencia"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label>Día:</ion-label>
+    <ion-input value="{{fechaDia | date: 'dd/MM/yyyy'}}" id="dia" class="ion-text-end"></ion-input>
+    <ion-popover trigger="dia" size="cover">
+      <ng-template>
+        <ion-datetime presentation="date" [(ngModel)]="fechaDia" locale="es"></ion-datetime>
+      </ng-template>
+    </ion-popover>
+  </ion-item>
+  <ion-item>
+    <ion-label>Inicio:</ion-label>
+    <ion-input value="{{fechaInicio | date: 'dd/MM/yyyy HH:mm'}}" id="inicio" class="ion-text-end"></ion-input>
+    <ion-popover trigger="inicio" size="cover">
+      <ng-template>
+        <ion-datetime presentation="date-time" [(ngModel)]="fechaInicio" locale="es"></ion-datetime>
+      </ng-template>
+    </ion-popover>
+  </ion-item>
+  <ion-item>
+    <ion-label>Fin:</ion-label>
+    <ion-input value="{{fechaFin | date: 'dd/MM/yyyy HH:mm'}}" id="fin" class="ion-text-end"></ion-input>
+    <ion-popover trigger="fin" size="cover">
+      <ng-template>
+        <ion-datetime presentation="date-time" [(ngModel)]="fechaFin" locale="es"></ion-datetime>
+      </ng-template>
+    </ion-popover>
+  </ion-item>
+  <ion-item>
+    <ion-label>Escenario:</ion-label>
+    <ion-select placeholder="Escenario..." [(ngModel)]="escenario" cancelText="Cancelar">
+      <ion-select-option *ngFor="let escenario of escenarios | keyvalue" value="{{escenario.value}}">{{escenario.value}}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+  <ion-item>
+    <ion-label>Relevancia:</ion-label>
+    <ion-note slot="end">{{grupo.relevancia}}</ion-note>
+  </ion-item>
+  <ion-item>
+    <ion-range [(ngModel)]="grupo.relevancia" ticks="true" snaps="true" color="warning" step="1" min="0" max="5">
+    </ion-range>
+  </ion-item>
+  <ion-item>
+    <ion-textarea placeholder="Opinión..." auto-grow="true" [(ngModel)]="grupo.descripcion"></ion-textarea>
+  </ion-item>
+  <ion-item (click)="initModal()">
+    <ion-thumbnail slot="start">
+      <img [src]="grupo.infoSpotify?.image">
+    </ion-thumbnail>
+    <ion-label>
+      <h3>{{grupo.infoSpotify?.nombre}}</h3>
+      <p>{{grupo.infoSpotify?.generos}}</p>
+    </ion-label>
+  </ion-item>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-button expand="block" color="success" (click)="guardarGrupo()">
+          <ion-icon name="checkmark-outline"></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col>
+        <ion-button expand="block" color="danger" (click)="cancelar()">X</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-modal trigger="spotify" canDismiss="true">
+    <ng-template>
+      <ion-header translucent>
+        <ion-toolbar>
+          <ion-title>Modal Content</ion-title>
+
+        </ion-toolbar>
+      </ion-header>
+      <app-busqueda-spotify></app-busqueda-spotify>
+    </ng-template>
+  </ion-modal>
+
+
+
+</ion-content>

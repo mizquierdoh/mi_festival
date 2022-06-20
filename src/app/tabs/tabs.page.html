@@ -1,0 +1,11 @@
+<ion-tabs>
+
+  <ion-tab-bar slot="bottom">
+    <ion-tab-button *ngFor="let dia of dias;let d = index" [tab]="d" routerLinkActive="selected">
+      <ion-label>{{dia| date:'EEEEEE d':'+0200':'es'}} </ion-label>
+    </ion-tab-button>
+
+
+  </ion-tab-bar>
+
+</ion-tabs>

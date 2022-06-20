@@ -1,0 +1,7 @@
+{
+  "name": "mi_festival",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

@@ -1,0 +1,29 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Búsqueda Spotify</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="close()">Cerrar</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-list-header>
+    <ion-searchbar placehoder="Búsqueda" [(ngModel)]="name" search-icon="none"></ion-searchbar>
+    <ion-button (click)="search()">
+      <ion-icon name="search-outline"></ion-icon>
+    </ion-button>
+  </ion-list-header>
+
+  <ion-list>
+    <ion-item *ngFor="let artist of resultados" (click)="save(artist)">
+      <ion-thumbnail slot="start">
+        <img [src]="artist.image">
+      </ion-thumbnail>
+      <ion-label>
+        <h3>{{artist.nombre}}</h3>
+        <p>{{artist.generos}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
