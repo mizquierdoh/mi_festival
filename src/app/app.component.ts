@@ -21,6 +21,10 @@ export class AppComponent {
 
   }
 
+  saveGrupos() {
+    this.gruposService.saveGrupos();
+  }
+
   ngOnInit() {
     this.appPages = [
       { title: 'Busqueda', url: '', icon: 'search' },

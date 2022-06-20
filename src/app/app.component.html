@@ -5,8 +5,15 @@
         <ion-list id="inbox-list">
           <ion-list-header>
             <ion-item>
-              <label class="btn btn-primary" for="myFileInput">Upload</label>
+              <label for="myFileInput">
+                <ion-icon size="large" name="folder-open"></ion-icon>
+              </label>
               <ion-input type="file" id="myFileInput" (change)="cargarGrupos($event.target.files)"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-button (click)="saveGrupos()">
+                <ion-icon size="large" name="cloud-download"></ion-icon>
+              </ion-button>
             </ion-item>
           </ion-list-header>
 

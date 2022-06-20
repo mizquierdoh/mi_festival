@@ -7,6 +7,7 @@ import { Horario } from '../entities/horario';
 import { SpotifyService } from './spotify.service';
 import { ArtistSpotify } from '../entities/artist-spotify';
 import { DateUtils } from '../utils/date-utils';
+import { DateTimeUtils } from '../utils/date-time-utils';
 
 @Injectable({
   providedIn: 'root'
@@ -150,6 +151,38 @@ export class GruposService {
         this.storageService.set("horario", this.horario);
       }
     }
+  }
+
+  saveGrupos() {
+    this.getGrupos().then(grupos => {
+
+      let gruposExcel = { grupos: [] };
+
+      for (const grupo of grupos) {
+        gruposExcel.grupos.push({
+          nombre: grupo.nombre,
+          dia: DateTimeUtils.toExcelString(grupo.dia),
+          inicio: DateTimeUtils.toExcelString(grupo.inicio),
+          fin: DateTimeUtils.toExcelString(grupo.fin),
+          escenario: grupo.escenario,
+          relevancia: grupo.relevancia,
+          procedencia: grupo.procedencia,
+          id_spotify: !!grupo.infoSpotify ? grupo.infoSpotify.idSpotify : ""
+        });
+      }
+
+      let file = new Blob([JSON.stringify(gruposExcel)], { type: 'application/json' });
+      let a = document.createElement("a"),
+        url = URL.createObjectURL(file);
+      a.href = url;
+      a.download = "grupos_" + new Date().toString();
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(function () {
+        document.body.removeChild(a);
+        window.URL.revokeObjectURL(url);
+      }, 0);
+    })
   }
 
 
