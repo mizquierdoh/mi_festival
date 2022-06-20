@@ -11,7 +11,9 @@ import { SpotifyService } from 'src/app/services/spotify.service';
 export class BusquedaSpotifyComponent implements OnInit {
 
   @Input() name: string;
+  @Input() id: string;
   resultados: ArtistSpotify[];
+  offset: number;
 
 
   constructor(private modalCtr: ModalController,
@@ -20,7 +22,7 @@ export class BusquedaSpotifyComponent implements OnInit {
   ngOnInit() {
     this.resultados = [];
     if (this.name.length > 0) {
-      this.search();
+      this.search(0);
     }
   }
 
@@ -29,10 +31,35 @@ export class BusquedaSpotifyComponent implements OnInit {
     await this.modalCtr.dismiss();
   }
 
-  search() {
-    this.spotifyService.searchGrupo(this.name).then(resultados => {
-      this.resultados = resultados;
+
+
+  search(event?) {
+    if (!event) {
+      this.offset = 0;
+    }
+    this.spotifyService.searchGrupo(this.name, this.offset).then(busqueda => {
+      console.log("Offset - " + this.offset);
+      console.log(busqueda);
+      const resultados: ArtistSpotify[] = busqueda.resultados;
+      if (this.offset == 0) {
+        this.resultados = resultados;
+      } else {
+        this.resultados = this.resultados.concat(resultados);
+      }
+      if (this.resultados.length < busqueda.total) {
+        this.offset += 20;
+
+      } else if (!!event) {
+        event.target.disabled = true;
+      }
+      if (!!event) {
+        event.target.complete();
+      }
     })
+  }
+
+  get resultadosFiltrados(): ArtistSpotify[] {
+    return this.resultados.filter(r => r.idSpotify.includes(this.id))
   }
 
   async save(artist: ArtistSpotify) {

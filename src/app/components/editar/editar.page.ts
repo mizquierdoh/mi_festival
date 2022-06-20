@@ -72,16 +72,21 @@ export class EditarPage implements OnInit {
     this.location.back();
   }
 
+  cleanSpotify() {
+    this.grupo.infoSpotify = new ArtistSpotify();
+  }
+
   async initModal() {
     const modal = await this.modalController.create({
       component: BusquedaSpotifyComponent,
       componentProps: {
-        'name': this.grupo.nombre
+        'name': this.grupo.nombre,
+        'id': !!this.grupo.infoSpotify ? this.grupo.infoSpotify.idSpotify : ""
       }
     });
 
     modal.onDidDismiss().then((response: OverlayEventDetail<ArtistSpotify>) => {
-      if (!!response) {
+      if (!!response && !!response.data) {
         this.grupo.infoSpotify = response.data;
       }
     });

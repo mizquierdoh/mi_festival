@@ -9,16 +9,17 @@
 
 <ion-content>
   <ion-list-header>
-    <ion-searchbar placehoder="Búsqueda" [(ngModel)]="name" search-icon="none"></ion-searchbar>
+    <ion-searchbar placehoder="Nombre..." [(ngModel)]="name" search-icon="none"></ion-searchbar>
+    <ion-searchbar placehoder="Id..." [(ngModel)]="id" search-icon="none"></ion-searchbar>
     <ion-button (click)="search()">
       <ion-icon name="search-outline"></ion-icon>
     </ion-button>
   </ion-list-header>
 
   <ion-list>
-    <ion-item *ngFor="let artist of resultados" (click)="save(artist)">
+    <ion-item *ngFor="let artist of resultadosFiltrados" (click)="save(artist)">
       <ion-thumbnail slot="start">
-        <img [src]="artist.image">
+        <img *ngIf="!!artist.image" [src]="artist.image">
       </ion-thumbnail>
       <ion-label>
         <h3>{{artist.nombre}}</h3>
@@ -26,4 +27,9 @@
       </ion-label>
     </ion-item>
   </ion-list>
+
+  <ion-infinite-scroll threshold="100px" id="infinite-scroll" (ionInfinite)="search($event)">
+    <ion-infinite-scroll-content loading-spinner="bubbles" loading-text="Cargando...">
+    </ion-infinite-scroll-content>
+  </ion-infinite-scroll>
 </ion-content>

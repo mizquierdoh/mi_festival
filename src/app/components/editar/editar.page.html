@@ -56,14 +56,18 @@
   <ion-item>
     <ion-textarea placeholder="Opinión..." auto-grow="true" [(ngModel)]="grupo.descripcion"></ion-textarea>
   </ion-item>
-  <ion-item (click)="initModal()">
-    <ion-thumbnail slot="start">
+  <ion-item *ngIf="!!grupo.infoSpotify?.idSpotify">
+    <ion-thumbnail slot="start" (click)="initModal()">
       <img [src]="grupo.infoSpotify?.image">
     </ion-thumbnail>
-    <ion-label>
+    <ion-label (click)="initModal()">
       <h3>{{grupo.infoSpotify?.nombre}}</h3>
       <p>{{grupo.infoSpotify?.generos}}</p>
     </ion-label>
+    <ion-button slot="end" color="danger" (click)="cleanSpotify()">X</ion-button>
+  </ion-item>
+  <ion-item *ngIf="!grupo.infoSpotify?.idSpotify">
+    <ion-button color="success" expand="block" (click)="initModal()">Añadir Spotify</ion-button>
   </ion-item>
   <ion-grid>
     <ion-row>

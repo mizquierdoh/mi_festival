@@ -45,8 +45,8 @@ export class SpotifyService {
     });
   }
 
-  searchGrupo(nombre: string): Promise<ArtistSpotify[]> {
-    return new Promise<ArtistSpotify[]>(resolve => {
+  searchGrupo(nombre: string, offset: number): Promise<any> {
+    return new Promise<any>(resolve => {
       this.getToken().subscribe(data => {
         const token = data['access_token'];
         const nombreEncoded = window.encodeURIComponent(nombre);
@@ -54,13 +54,12 @@ export class SpotifyService {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         });
-        const url = `https://api.spotify.com/v1/search?q=${nombreEncoded}&type=artist`;
+        const url = `https://api.spotify.com/v1/search?q=${nombreEncoded}&type=artist&offset=${offset}`;
         return this.http.get(url, { headers }).subscribe(busqueda => {
           let resultados: ArtistSpotify[] = [];
           const artists = busqueda['artists'];
           const items = artists['items'].sort((a, b) => Number.parseInt(a['popularity']) - Number.parseInt(b['popularity']));
           for (const item of items) {
-            console.log(item);
             let artista = new ArtistSpotify();
             artista.idSpotify = item['id'];
             artista.nombre = item['name'];
@@ -77,8 +76,7 @@ export class SpotifyService {
             resultados.push(artista);
 
           }
-
-          resolve(resultados);
+          resolve({ total: artists['total'], resultados });
 
         });
       });
