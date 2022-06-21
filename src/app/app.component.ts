@@ -1,5 +1,4 @@
-import { Component } from '@angular/core';
-import { AemetService } from './services/aemet.service';
+import { Component, ViewEncapsulation } from '@angular/core';
 import { GruposService } from './services/grupos.service';
 
 
@@ -7,12 +6,13 @@ import { GruposService } from './services/grupos.service';
   selector: 'app-root',
   templateUrl: 'app.component.html',
   styleUrls: ['app.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 
 export class AppComponent {
 
   public appPages = [];
-  constructor(private gruposService: GruposService, private aemetService: AemetService) {
+  constructor(private gruposService: GruposService) {
   }
   cargarGrupos(files) {
     const file = files.item(0);

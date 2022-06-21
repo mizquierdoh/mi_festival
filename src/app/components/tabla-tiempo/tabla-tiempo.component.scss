@@ -6,9 +6,12 @@ table {
 
 td {
     margin: 0;
-    border: 1px solid #000;
+    border: 3px solid black;
     white-space: nowrap;
     border-top-width: 0px;
+    background-size: cover;
+    background-position-y: 33%;
+
 
 }
 
@@ -30,23 +33,33 @@ div {
 }
 
 .main {
-    --background: #9f0202;
+    --background: rgba(159, 2, 2, 0.75);
+
     color: white;
+    border-color: red;
 }
 
 .desert {
-    --background: #b06700;
+    --background: rgba(176, 103, 0, 0.75);
     color: black;
+    border-color: rgb(255, 149, 2);
+    ;
+}
+
+p {
+    color: inherit;
 }
 
 .ritual {
-    --background: grey;
+    --background: rgba(128, 128, 128, 0.75);
     color: white;
+    border-color: silver;
 }
 
 .chaos {
-    --background: black;
+    --background: rgba(0, 0, 0, 0.75);
     color: white;
+    border-color: black
 }
 
 .ahora {
@@ -92,12 +105,6 @@ ion-item {
     --border-style: none;
 }
 
-ion-badge {
-    margin-top: 0px;
-    margin-right: 1em;
-    margin-inline-start: 1em;
-    padding: 0.5em
-}
 
 ion-label {
     margin-top: 0px;

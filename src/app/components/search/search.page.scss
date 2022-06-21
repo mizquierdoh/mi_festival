@@ -1,0 +1,61 @@
+.main {
+    --background: rgba(159, 2, 2, 0.75);
+
+    color: white;
+    border-color: red;
+}
+
+.desert {
+    --background: rgba(176, 103, 0, 0.75);
+    color: black;
+    border-color: rgb(255, 149, 2);
+    ;
+}
+
+p {
+    color: inherit;
+}
+
+.ritual {
+    --background: rgba(128, 128, 128, 0.75);
+    color: white;
+    border-color: silver;
+}
+
+.chaos {
+    --background: rgba(0, 0, 0, 0.75);
+    color: white;
+    border-color: black
+}
+
+ion-badge.class1 {
+    --background: red;
+}
+
+ion-badge.class2 {
+    --background: orange;
+}
+
+ion-badge.class3 {
+    --background: yellow;
+    --color: black;
+}
+
+ion-badge.class4 {
+    --background: yellowgreen;
+    --color: black;
+}
+
+ion-badge.class5 {
+    --background: green;
+}
+
+ion-badge {
+    font-size: large;
+}
+
+ion-item {
+    --background: inherit;
+    --inner-padding-end: 0px;
+    --border-style: none;
+}

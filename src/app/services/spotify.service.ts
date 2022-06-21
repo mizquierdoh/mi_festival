@@ -54,7 +54,7 @@ export class SpotifyService {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
         });
-        const url = `https://api.spotify.com/v1/search?q=${nombreEncoded}&type=artist&offset=${offset}`;
+        const url = `https://api.spotify.com/v1/search?q=${nombreEncoded}&type=artist&offset=${offset}&market=ES`;
         return this.http.get(url, { headers }).subscribe(busqueda => {
           let resultados: ArtistSpotify[] = [];
           const artists = busqueda['artists'];
@@ -129,6 +129,23 @@ export class SpotifyService {
           resolve(resultados);
 
         });
+      });
+    });
+  }
+
+  getTopTracks(id: string): Promise<string[]> {
+    return new Promise<string[]>(resolve => {
+      this.getToken().subscribe(data => {
+        const token = data['access_token'];
+        const headers = new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        });
+        const url = `https://api.spotify.com/v1/artists/${id}/top-tracks?market=ES`;
+        this.http.get(url, { headers }).subscribe(response => {
+          resolve(response['tracks'].map(t => t['preview_url']));
+        });
+
       });
     });
   }

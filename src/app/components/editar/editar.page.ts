@@ -51,9 +51,9 @@ export class EditarPage implements OnInit {
           this.grupo.infoSpotify = new ArtistSpotify();
         } else {
           this.escenario = this.grupo.escenario ? this.grupo.escenario.toUpperCase() : "";
-          this.fechaDia = DateTimeUtils.toIsoString(this.grupo.dia);
-          this.fechaInicio = DateTimeUtils.toIsoString(this.grupo.inicio);
-          this.fechaFin = DateTimeUtils.toIsoString(this.grupo.fin);
+          this.fechaDia = !!this.grupo.dia ? DateTimeUtils.toIsoString(this.grupo.dia) : null;
+          this.fechaInicio = !!this.grupo.inicio ? DateTimeUtils.toIsoString(this.grupo.inicio) : null;
+          this.fechaFin = !!this.grupo.fin ? DateTimeUtils.toIsoString(this.grupo.fin) : null;
         }
       });
     }

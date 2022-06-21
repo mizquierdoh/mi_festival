@@ -85,11 +85,9 @@ export class GruposService {
   }
 
   getGrupos(): Promise<Grupo[]> {
-    if (!!this.grupos && this.grupos.length > 0) {
-      return Promise.resolve(this.grupos);
-    } else {
-      return this.storageService.get("grupos");
-    }
+
+    return this.storageService.get("grupos");
+
   }
 
   getHorario(): Promise<Horario[]> {
@@ -167,6 +165,7 @@ export class GruposService {
           escenario: grupo.escenario,
           relevancia: grupo.relevancia,
           procedencia: grupo.procedencia,
+          descripcion: grupo.descripcion,
           id_spotify: !!grupo.infoSpotify ? grupo.infoSpotify.idSpotify : ""
         });
       }

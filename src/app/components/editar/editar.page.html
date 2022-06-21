@@ -16,7 +16,8 @@
     <ion-input value="{{fechaDia | date: 'dd/MM/yyyy'}}" id="dia" class="ion-text-end"></ion-input>
     <ion-popover trigger="dia" size="cover">
       <ng-template>
-        <ion-datetime presentation="date" [(ngModel)]="fechaDia" locale="es"></ion-datetime>
+        <ion-datetime presentation="date" [(ngModel)]="fechaDia" locale="es" show-default-buttons="true" doneText="OK"
+          cancelText="Cancelar"></ion-datetime>
       </ng-template>
     </ion-popover>
   </ion-item>
@@ -25,7 +26,9 @@
     <ion-input value="{{fechaInicio | date: 'dd/MM/yyyy HH:mm'}}" id="inicio" class="ion-text-end"></ion-input>
     <ion-popover trigger="inicio" size="cover">
       <ng-template>
-        <ion-datetime presentation="date-time" [(ngModel)]="fechaInicio" locale="es"></ion-datetime>
+        <ion-datetime presentation="date-time" [(ngModel)]="fechaInicio" locale="es" show-default-buttons="true"
+          doneText="OK" cancelText="Cancelar">
+        </ion-datetime>
       </ng-template>
     </ion-popover>
   </ion-item>
@@ -34,7 +37,9 @@
     <ion-input value="{{fechaFin | date: 'dd/MM/yyyy HH:mm'}}" id="fin" class="ion-text-end"></ion-input>
     <ion-popover trigger="fin" size="cover">
       <ng-template>
-        <ion-datetime presentation="date-time" [(ngModel)]="fechaFin" locale="es"></ion-datetime>
+        <ion-datetime presentation="date-time" [(ngModel)]="fechaFin" locale="es" show-default-buttons="true"
+          doneText="OK" cancelText="Cancelar">
+        </ion-datetime>
       </ng-template>
     </ion-popover>
   </ion-item>

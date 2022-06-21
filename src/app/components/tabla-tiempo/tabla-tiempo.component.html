@@ -14,18 +14,21 @@
 
 
       </td>
-      <td *ngFor=" let grupo of getColumnas(prediccion.key)"
-        [ngClass]="!!grupo.escenario?grupo.escenario.toLowerCase(): ''" [attr.rowspan]="getRowspan(grupo)">
+      <td *ngFor=" let grupo of getColumnas(prediccion.key)" [attr.rowspan]="getRowspan(grupo)"
+        [ngStyle]="{'background-image': 'url(' + grupo.infoSpotify?.image + ')'}"
+        [ngClass]="!!grupo.escenario?grupo.escenario.toLowerCase(): ''">
 
         <ion-item [routerLink]="'/grupo/'+grupo.uuid">
-          <ion-label> <strong> {{grupo.nombre}}</strong></ion-label>
+
+          <ion-label>
+            <h3> {{grupo.nombre}}</h3>
+            <p *ngIf=" !!grupo.nombre">{{grupo.inicio | date:'HH:mm'}} - {{grupo.fin | date:'HH:mm'}}</p>
+          </ion-label>
           <ion-badge slot="end" [ngClass]="'class'+grupo?.relevancia ">
             {{grupo?.relevancia}}
           </ion-badge>
         </ion-item>
-        <ion-item>
-          <ion-label *ngIf=" !!grupo.nombre">{{grupo.inicio | date:'HH:mm'}} - {{grupo.fin | date:'HH:mm'}}</ion-label>
-        </ion-item>
+
 
 
       </td>
