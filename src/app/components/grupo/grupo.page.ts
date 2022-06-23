@@ -18,6 +18,7 @@ export class GrupoPage implements OnInit {
   grupo: Grupo;
   tab: number;
   track: any;
+  trackStatus;
 
   constructor(private activatedRoute: ActivatedRoute,
     private gruposService: GruposService,
@@ -33,19 +34,25 @@ export class GrupoPage implements OnInit {
 
   ngOnInit() {
     console.log("grupo.ngOnInit");
+    this.cargarGrupo();
 
+  }
 
-    this.router.events.subscribe(event => {
+  play() {
+    console.log("play");
+    if (!!this.track) {
+      this.track.play();
+      console.log(this.trackStatus);
+    }
+  }
 
-      console.log(event);
-      if (event instanceof NavigationEnd || event instanceof ChildActivationEnd) {
+  pause() {
+    console.log("pause");
 
-        this.cargarGrupo();
-      }
-    });
-
-
-
+    if (!!this.track) {
+      this.track.pause();
+      console.log(this.trackStatus);
+    }
   }
 
   cargarGrupo() {
@@ -60,7 +67,10 @@ export class GrupoPage implements OnInit {
         if (!!this.grupo.infoSpotify) {
           this.spotifyService.getTopTracks(this.grupo.infoSpotify.idSpotify).then(tracks => {
             this.track = this.media.create(tracks[Math.floor(Math.random() * tracks.length)]);
-            this.track.play();
+            this.track.onStatusUpdate.subscribe(status => {
+              console.log(status);
+              this.trackStatus = status;
+            });
           });
         }
 

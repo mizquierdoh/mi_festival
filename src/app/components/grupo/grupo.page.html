@@ -11,9 +11,19 @@
 </ion-header>
 
 <ion-content>
+
   <ion-item-group>
     <ion-item *ngIf="!!grupo?.infoSpotify">
       <ion-img (click)="navegarSpotify()" [src]="grupo?.infoSpotify?.image"></ion-img>
+    </ion-item>
+    <ion-item>
+      <ion-button (click)="play()">
+        <ion-icon name="play-outline"></ion-icon>
+      </ion-button>
+      <ion-button (click)="pause()">
+        <ion-icon name="pause-outline"></ion-icon>
+      </ion-button>
+      <ion-label>{{trackStatus}}</ion-label>
     </ion-item>
     <ion-item *ngIf="!!grupo?.infoSpotify">
       <ion-label text-wrap>{{grupo?.infoSpotify?.generos}}</ion-label>
