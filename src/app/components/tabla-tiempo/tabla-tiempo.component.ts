@@ -15,6 +15,8 @@ export class TablaTiempoComponent implements OnInit {
   columnas: Grupo[][] = [];
   predicciones: Map<number, string>;
 
+  grupoFinaliza: Date[] = [];
+
   constructor(private aemetService: AemetService) {
   }
 

@@ -17,7 +17,7 @@
     <ion-popover trigger="dia" size="cover">
       <ng-template>
         <ion-datetime presentation="date" [(ngModel)]="fechaDia" locale="es" show-default-buttons="true" doneText="OK"
-          cancelText="Cancelar"></ion-datetime>
+          first-day-of-week="1" cancelText="Cancelar"></ion-datetime>
       </ng-template>
     </ion-popover>
   </ion-item>
@@ -27,7 +27,7 @@
     <ion-popover trigger="inicio" size="cover">
       <ng-template>
         <ion-datetime presentation="date-time" [(ngModel)]="fechaInicio" locale="es" show-default-buttons="true"
-          doneText="OK" cancelText="Cancelar">
+          first-day-of-week="1" doneText="OK" cancelText="Cancelar">
         </ion-datetime>
       </ng-template>
     </ion-popover>
@@ -38,7 +38,7 @@
     <ion-popover trigger="fin" size="cover">
       <ng-template>
         <ion-datetime presentation="date-time" [(ngModel)]="fechaFin" locale="es" show-default-buttons="true"
-          doneText="OK" cancelText="Cancelar">
+          first-day-of-week="1" doneText="OK" cancelText="Cancelar">
         </ion-datetime>
       </ng-template>
     </ion-popover>
