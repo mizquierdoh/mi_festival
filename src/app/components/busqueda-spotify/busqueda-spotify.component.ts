@@ -59,6 +59,9 @@ export class BusquedaSpotifyComponent implements OnInit {
   }
 
   get resultadosFiltrados(): ArtistSpotify[] {
+    if (!this.id || this.id.length == 0) {
+      return this.resultados;
+    }
     return this.resultados.filter(r => r.idSpotify.includes(this.id))
   }
 

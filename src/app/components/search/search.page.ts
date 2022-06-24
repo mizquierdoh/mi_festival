@@ -19,14 +19,9 @@ export class SearchPage implements OnInit {
 
   ngOnInit() {
     this.busqueda = "";
-    this.router.events.subscribe(event => {
-      console.log(event);
 
-      if (event instanceof NavigationEnd || event instanceof ChildActivationEnd) {
-        this.cargarGrupos();
-      }
+    this.cargarGrupos();
 
-    });
 
 
   }
@@ -39,13 +34,25 @@ export class SearchPage implements OnInit {
   cargarGrupos() {
     this.gruposService.getGrupos().then(grupos => {
       if (!!grupos) {
-        this.grupos = grupos.sort((a, b) => a.nombre < b.nombre ? -1 : 1);
+        this.grupos = grupos.sort((a, b) => a.nombre.toLowerCase() < b.nombre.toLowerCase() ? -1 : 1);
         this.resultados = grupos;
         if (!!this.busqueda) {
           this.resultados = this.grupos.filter(g => g.nombre.toLowerCase().includes(this.busqueda.toLowerCase()))
         }
       }
 
+    });
+  }
+
+  nuevo() {
+    this.router.navigateByUrl("/editar", {
+      replaceUrl: true
+    });
+  }
+
+  editar(uuid: string) {
+    this.router.navigateByUrl("/grupo/" + uuid, {
+      replaceUrl: true
     });
   }
 

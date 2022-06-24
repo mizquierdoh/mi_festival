@@ -1,5 +1,5 @@
-import { Component, ElementRef, HostListener, OnInit } from '@angular/core';
-import { ActivatedRoute, ChildActivationEnd, NavigationEnd, Router } from '@angular/router';
+import { Component, ElementRef, HostListener, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Media } from '@ionic-native/media/ngx';
 import { AlertController, Platform } from '@ionic/angular';
 import { Grupo } from 'src/app/entities/grupo';
@@ -17,8 +17,9 @@ export class GrupoPage implements OnInit {
 
   grupo: Grupo;
   tab: number;
-  track: any;
-  trackStatus;
+  tracks: any[];
+  track: number;
+  isPlaying: boolean = false;
 
   constructor(private activatedRoute: ActivatedRoute,
     private gruposService: GruposService,
@@ -33,16 +34,35 @@ export class GrupoPage implements OnInit {
   }
 
   ngOnInit() {
-    console.log("grupo.ngOnInit");
     this.cargarGrupo();
 
   }
 
+  editar() {
+    this.router.navigateByUrl('/editar/' + this.grupo.uuid, {
+      replaceUrl: true
+    });
+
+  }
+
+  next() {
+
+    this.tracks[this.track].stop();
+    this.tracks[this.track].release();
+
+    this.track++;
+    if (this.track >= this.tracks.length) {
+      this.track = 0;
+    }
+    this.play();
+  }
+
+
   play() {
     console.log("play");
     if (!!this.track) {
-      this.track.play();
-      console.log(this.trackStatus);
+      this.tracks[this.track].play();
+      this.isPlaying = true;
     }
   }
 
@@ -50,8 +70,8 @@ export class GrupoPage implements OnInit {
     console.log("pause");
 
     if (!!this.track) {
-      this.track.pause();
-      console.log(this.trackStatus);
+      this.tracks[this.track].pause();
+      this.isPlaying = false;
     }
   }
 
@@ -66,11 +86,10 @@ export class GrupoPage implements OnInit {
         });
         if (!!this.grupo.infoSpotify) {
           this.spotifyService.getTopTracks(this.grupo.infoSpotify.idSpotify).then(tracks => {
-            this.track = this.media.create(tracks[Math.floor(Math.random() * tracks.length)]);
-            this.track.onStatusUpdate.subscribe(status => {
-              console.log(status);
-              this.trackStatus = status;
-            });
+
+            this.tracks = tracks.map(t => this.media.create(t));
+            this.track = 0;
+
           });
         }
 
@@ -86,9 +105,9 @@ export class GrupoPage implements OnInit {
   ngOnDestroy() {
     console.log("grupo.ngOnDestroy");
 
-    if (!!this.track) {
-      this.track.stop();
-      this.track.release();
+    if (!!this.tracks && !!this.tracks[this.track]) {
+      this.tracks[this.track].stop();
+      this.tracks[this.track].release();
     }
 
     this.elementRef.nativeElement.remove();
@@ -103,7 +122,9 @@ export class GrupoPage implements OnInit {
         text: 'OK',
         handler: () => {
           this.gruposService.eliminarGrupo(this.grupo.uuid);
-          this.router.navigate(["/search"])
+          this.router.navigate(["/search"], {
+            replaceUrl: true
+          });
         }
       }, 'Cancelar']
     });

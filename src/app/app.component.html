@@ -18,18 +18,15 @@
           </ion-list-header>
           <ion-menu-toggle auto-hide="false">
             <ion-item (click)="getAhora()">
-              <ion-icon slot="start" name="time-outline"></ion-icon>
-              <ion-label>Ahora</ion-label>
+              <ion-icon slot="start" name="calendar-sharp"></ion-icon>
+              <ion-label>Horario</ion-label>
 
             </ion-item>
-          </ion-menu-toggle>
 
-          <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages; let i = index">
 
-            <ion-item routerDirection="root" [routerLink]="[p.url]" lines="none" detail="false"
-              routerLinkActive="selected">
-              <ion-icon slot="start" [ios]="p.icon + '-outline'" [md]="p.icon + '-sharp'"></ion-icon>
-              <ion-label>{{ p.title }}</ion-label>
+            <ion-item routerDirection="root" (click)="search()" lines="none" detail="false" routerLinkActive="selected">
+              <ion-icon slot="start" name="search-sharp"></ion-icon>
+              <ion-label>Búsqueda</ion-label>
             </ion-item>
           </ion-menu-toggle>
         </ion-list>

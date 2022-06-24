@@ -11,7 +11,7 @@
 
 <ion-content>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button routerLink="/editar">
+    <ion-fab-button (click)="nuevo()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
@@ -22,7 +22,7 @@
       <ion-thumbnail slot="start">
         <img *ngIf="!!grupo.infoSpotify && !!grupo.infoSpotify.image" [src]="grupo?.infoSpotify.image">
       </ion-thumbnail>
-      <ion-label [routerLink]="'/grupo/' + grupo.uuid ">
+      <ion-label (click)="editar( grupo.uuid) ">
         <h3>{{grupo.nombre}}</h3>
         <p>{{grupo.procedencia}}</p>
       </ion-label>

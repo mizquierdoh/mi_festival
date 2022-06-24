@@ -110,19 +110,24 @@ export class GruposService {
     });
   }
 
-  guardarGrupo(grupo: Grupo) {
-    this.getGrupos().then(grupos => {
-      this.grupos = grupos;
-      let index = this.grupos.findIndex(g => g.uuid === grupo.uuid);
-      if (index == -1) {
-        grupo.uuid = uuidv4();
-        this.grupos.push(grupo);
-      } else {
-        this.grupos[index] = grupo;
-      }
-      this.updateHorario(this.grupos);
-      this.storageService.set("grupos", this.grupos);
-    });
+  guardarGrupo(grupo: Grupo): Promise<void> {
+    return new Promise<void>(resolve => {
+      this.getGrupos().then(grupos => {
+        this.grupos = grupos;
+        let index = this.grupos.findIndex(g => g.uuid === grupo.uuid);
+        if (index == -1) {
+          grupo.uuid = uuidv4();
+          this.grupos.push(grupo);
+        } else {
+          this.grupos[index] = grupo;
+        }
+        this.grupos = this.grupos.sort((a, b) => a.nombre < b.nombre ? -1 : 1)
+        this.updateHorario(this.grupos);
+        this.storageService.set("grupos", this.grupos);
+        resolve();
+      });
+    })
+
   }
 
   private updateHorario(grupos: Grupo[]) {

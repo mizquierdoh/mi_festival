@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Grupo } from 'src/app/entities/grupo';
 import { GruposService } from 'src/app/services/grupos.service';
 import { Escenarios } from "../../entities/escenarios";
@@ -32,8 +32,8 @@ export class EditarPage implements OnInit {
 
   constructor(private gruposService: GruposService,
     private activatedRoute: ActivatedRoute,
-    private location: Location,
-    private modalController: ModalController,) {
+    private modalController: ModalController,
+    private router: Router) {
     this.escenarios = Object.keys(Escenarios);
 
   }
@@ -51,9 +51,9 @@ export class EditarPage implements OnInit {
           this.grupo.infoSpotify = new ArtistSpotify();
         } else {
           this.escenario = this.grupo.escenario ? this.grupo.escenario.toUpperCase() : "";
-          this.fechaDia = !!this.grupo.dia ? DateTimeUtils.toIsoString(this.grupo.dia) : null;
-          this.fechaInicio = !!this.grupo.inicio ? DateTimeUtils.toIsoString(this.grupo.inicio) : null;
-          this.fechaFin = !!this.grupo.fin ? DateTimeUtils.toIsoString(this.grupo.fin) : null;
+          this.fechaDia = !!this.grupo.dia ? DateTimeUtils.toIsoString(this.grupo.dia) : DateTimeUtils.toIsoString(new Date());
+          this.fechaInicio = !!this.grupo.inicio ? DateTimeUtils.toIsoString(this.grupo.inicio) : DateTimeUtils.toIsoString(new Date());;
+          this.fechaFin = !!this.grupo.fin ? DateTimeUtils.toIsoString(this.grupo.fin) : DateTimeUtils.toIsoString(new Date());;
         }
       });
     }
@@ -64,12 +64,19 @@ export class EditarPage implements OnInit {
     this.grupo.dia = new Date(this.fechaDia);
     this.grupo.inicio = new Date(this.fechaInicio);
     this.grupo.fin = new Date(this.fechaFin);
-    this.gruposService.guardarGrupo(this.grupo);
-    this.location.back();
+    this.gruposService.guardarGrupo(this.grupo).then(() => this.cancelar());
+
+
   }
 
   cancelar() {
-    this.location.back();
+    let url = "/search";
+    if (!!this.activatedRoute.snapshot.paramMap.get('uuid')) {
+      url = '/grupo/' + this.grupo.uuid;
+    }
+    this.router.navigateByUrl(url, {
+      replaceUrl: true
+    });
   }
 
   cleanSpotify() {

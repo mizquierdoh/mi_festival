@@ -16,12 +16,15 @@
     <ion-item *ngIf="!!grupo?.infoSpotify">
       <ion-img (click)="navegarSpotify()" [src]="grupo?.infoSpotify?.image"></ion-img>
     </ion-item>
-    <ion-item>
-      <ion-button (click)="play()">
-        <ion-icon name="play-outline"></ion-icon>
+    <ion-item *ngIf="!!tracks">
+      <ion-button expand="block" (click)="play()" *ngIf="!isPlaying">
+        <ion-icon name="play-sharp"></ion-icon>
       </ion-button>
-      <ion-button (click)="pause()">
-        <ion-icon name="pause-outline"></ion-icon>
+      <ion-button expand="block" (click)="pause()" *ngIf="isPlaying">
+        <ion-icon name="pause-sharp"></ion-icon>
+      </ion-button>
+      <ion-button expand="block" (click)="next()">
+        <ion-icon name="play-skip-forward-sharp"></ion-icon>
       </ion-button>
       <ion-label>{{trackStatus}}</ion-label>
     </ion-item>
@@ -72,7 +75,7 @@
   <ion-grid>
     <ion-row>
       <ion-col>
-        <ion-button expand="block" color="success" [routerLink]="'/editar/'+grupo?.uuid">
+        <ion-button expand="block" color="success" (click)="editar()">
           <ion-icon name="create-outline"></ion-icon>
         </ion-button>
       </ion-col>
