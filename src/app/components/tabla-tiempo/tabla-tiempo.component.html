@@ -1,7 +1,7 @@
-<div>
+<ion-content [scrollEvents]="true" [scrollX]="true">
   <table>
     <tr *ngFor="let prediccion of predicciones | keyvalue ; let h = index;" class="ion-align-items-center">
-      <td [ngClass]="isNow(prediccion.key)?'ahora horas':'horas'">
+      <td [ngClass]="isNow(prediccion.key)?'ahora horas':'horas'" [id]="prediccion.key">
         <ion-grid>
           <ion-row>
             {{prediccion.key | date:'HH:mm'}}
@@ -18,7 +18,7 @@
         [ngStyle]="{'background-image': 'url(' + grupo.infoSpotify?.image + ')'}"
         [ngClass]="!!grupo.escenario?grupo.escenario.toLowerCase(): ''">
 
-        <ion-item [routerLink]="'/grupo/'+grupo.uuid">
+        <ion-item [routerLink]="'/grupo/'+grupo.uuid" [id]="grupo.uuid">
 
           <ion-label>
             <h3> {{grupo.nombre}}</h3>
@@ -35,4 +35,4 @@
     </tr>
 
   </table>
-</div>
+</ion-content>

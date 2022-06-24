@@ -1,4 +1,6 @@
-import { Component, Input, OnInit, SimpleChange, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, SimpleChange, SimpleChanges, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { IonContent } from '@ionic/angular';
 import { Escenarios } from 'src/app/entities/escenarios';
 import { Grupo } from 'src/app/entities/grupo';
 import { AemetService } from 'src/app/services/aemet.service';
@@ -11,16 +13,22 @@ import { AemetService } from 'src/app/services/aemet.service';
 export class TablaTiempoComponent implements OnInit {
   @Input() grupos: Grupo[];
   @Input() horas: Date[];
+  @ViewChild(IonContent, { static: false }) content: IonContent;
 
   columnas: Grupo[][] = [];
   predicciones: Map<number, string>;
 
   grupoFinaliza: Date[] = [];
 
-  constructor(private aemetService: AemetService) {
+  uuid: string;
+
+  constructor(private aemetService: AemetService,
+    private activatedRoute: ActivatedRoute) {
   }
 
   ngOnInit() {
+    this.uuid = this.activatedRoute.snapshot.paramMap.get('uuid');
+
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -35,6 +43,7 @@ export class TablaTiempoComponent implements OnInit {
         }
       }
     });
+
   }
 
 
@@ -68,6 +77,30 @@ export class TablaTiempoComponent implements OnInit {
     return false;
 
 
+  }
+
+  checkIfValidUUID(str: string) {
+    // Regular expression to check if string is a valid UUID
+    const regexExp = /^[0-9a-fA-F]{8}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{4}\b-[0-9a-fA-F]{12}$/gi;
+
+    return regexExp.test(str);
+  }
+
+  ngAfterViewChecked() {
+    this.scrollToElement(this.uuid);
+
+  }
+
+  private scrollToElement(id: string) {
+    let element = document.getElementById(id);
+
+    if (!!element) {
+
+      let yOffset = element.offsetTop;
+      let xOffset = element.offsetLeft;
+      this.content.scrollToPoint(xOffset, yOffset, 500);
+
+    }
   }
 
 
